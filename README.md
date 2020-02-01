@@ -3,7 +3,7 @@ google-speedtest-chart
 
 Simple Python script to push speedtest results (using `speedtest-cli`) to a Google Docs spreadsheet. I use this to measure and track my upload and download bandwith:
 
-[![](https://docs.google.com/spreadsheets/d/e/2PACX-1vTKt3sAPXDMBvpOtl18Tbq2XVUtNHA9gDbKl_t_9hN95nxBaEy4pp1T8y98Rb4goolJBSbuNPkmBktG/pubchart?oid=2123739458&format=image)
+![](https://docs.google.com/spreadsheets/d/e/2PACX-1vTKt3sAPXDMBvpOtl18Tbq2XVUtNHA9gDbKl_t_9hN95nxBaEy4pp1T8y98Rb4goolJBSbuNPkmBktG/pubchart?oid=2123739458&format=image)
 
 You can find an interactive demo (~~actually productive~~) version of the chart by clicking the image above.
 
