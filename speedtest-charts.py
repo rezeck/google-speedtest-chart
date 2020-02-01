@@ -25,7 +25,7 @@ cliarg = parser.parse_args()
 
 # Set constants
 DATE = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-header = [['A1', 'B1', 'C1', 'D1'], ['Date', 'Download', 'Upload', 'Ping']]
+header = [['A1', 'B1', 'C1', 'D1', 'E1'], ['Date', 'Download', 'Upload', 'Ping', 'Log']]
 
 if cliarg.bymonth:
     sheetname = datetime.datetime.now().strftime("%b %Y")
@@ -34,15 +34,16 @@ if cliarg.bymonth:
 download = ''
 upload = ''
 ping = ''
+log = ''
 
 
 def get_credentials():
     """Function to check for valid OAuth access tokens."""
-    gc = pygsheets.authorize(outh_file="credentials.json")
+    gc = pygsheets.authorize(outh_file="/home/rezeck/Documents/google-speedtest-chart/credentials.json")
     return gc
 
 
-def submit_into_spreadsheet(download, upload, ping):
+def submit_into_spreadsheet(download, upload, ping, log):
     """Function to submit speedtest result."""
     gc = get_credentials()
 
@@ -69,7 +70,7 @@ def submit_into_spreadsheet(download, upload, ping):
             head.value = header[1][index]
             head.update()
 
-    data = [DATE, download, upload, ping]
+    data = [DATE, download, upload, ping, log]
 
     sheet.append_table(values=data)
 
@@ -81,8 +82,9 @@ def getresults():
     download = round(spdtest.download() / 1000 / 1000, 2)
     upload = round(spdtest.upload() / 1000 / 1000, 2)
     ping = round(spdtest.results.ping)
+    log = str(spdtest.results)
 
-    return(download, upload, ping)
+    return(download, upload, ping, log)
 
 
 def main():
@@ -96,7 +98,7 @@ def main():
 
     # Run speedtest and store output
     print("Starting speed test...")
-    download, upload, ping = getresults()
+    download, upload, ping, log = getresults()
     print(
         "Starting speed finished (Download: ", download,
         ", Upload: ", upload,
@@ -104,7 +106,7 @@ def main():
 
     # Write to spreadsheet
     print("Writing to spreadsheet...")
-    submit_into_spreadsheet(download, upload, ping)
+    submit_into_spreadsheet(download, upload, ping, log)
     print("Successfuly written to spreadsheet!")
 
 
